@@ -15,12 +15,13 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            min-height: 100dvh;
             overflow: hidden;
-            perspective: 2500px;
+            padding: 10px 5px;
         }
 
-        .header-container { text-align: center; color: #ffffff; margin-bottom: 25px; }
+        .header-container { text-align: center; color: #ffffff; margin-bottom: 15px; transition: all 0.3s ease; }
         .header-title { 
             font-family: 'Playfair Display', Georgia, serif; 
             font-size: 30px; 
@@ -43,8 +44,24 @@
             color: #b0b5c9; 
         }
 
-        .book {
+        .book-viewport {
             position: relative;
+            width: 660px;
+            height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 2500px;
+            transform-origin: center center;
+            transition: transform 0.2s ease-out;
+            margin: 5px 0;
+            flex-shrink: 0;
+        }
+
+        .book {
+            position: absolute;
+            left: 165px;
+            top: 0;
             width: 330px;
             height: 450px;
             transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -165,9 +182,17 @@
         .card-song-name { font-family: 'Lato', sans-serif; font-size: 11px; font-weight: 700; color: #ffffff; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .card-artist-name { font-family: 'Lato', sans-serif; font-size: 10px; font-weight: 300; color: #a7a7a7; }
 
-        .controls { margin-top: 35px; display: flex; gap: 20px; z-index: 100; }
+        .controls { margin-top: 15px; display: flex; gap: 20px; z-index: 100; }
         .btn { background: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 18px; color: #3e445c; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; transition: transform 0.2s, background-color 0.2s; }
         .btn:hover { background-color: #f0f2f5; transform: scale(1.05); }
+
+        @media (max-width: 600px) {
+            .header-container { margin-bottom: 8px; }
+            .header-title { font-size: 22px; }
+            .header-subtitle { font-size: 11px; }
+            .controls { margin-top: 10px; gap: 15px; }
+            .btn { width: 44px; height: 44px; font-size: 16px; }
+        }
 
         /* GAME SCREEN */
         .game-container { 
@@ -273,7 +298,8 @@
     </div>
 </div>
 
-<div class="book" id="book">
+<div class="book-viewport" id="book-viewport">
+    <div class="book" id="book">
 
     <!-- PAGE 1: COVER & WELCOME -->
     <div class="page" id="p1">
@@ -608,6 +634,7 @@
         </div>
     </div>
 
+    </div>
 </div>
 
 <div class="controls">
@@ -616,6 +643,33 @@
 </div>
 
 <script>
+    function adjustBookScale() {
+        const viewport = document.getElementById('book-viewport');
+        if (!viewport) return;
+        
+        const targetWidth = 660;
+        const targetHeight = 450;
+        
+        const availWidth = window.innerWidth - 16;
+        const header = document.querySelector('.header-container');
+        const controls = document.querySelector('.controls');
+        const reservedHeight = (header ? header.offsetHeight : 60) + (controls ? controls.offsetHeight : 50) + 40;
+        const availHeight = window.innerHeight - reservedHeight;
+        
+        const scaleX = availWidth / targetWidth;
+        const scaleY = availHeight / targetHeight;
+        
+        let scale = Math.min(scaleX, scaleY);
+        if (scale > 1) scale = 1;
+        if (scale < 0.35) scale = 0.35;
+        
+        viewport.style.transform = `scale(${scale})`;
+    }
+
+    window.addEventListener('resize', adjustBookScale);
+    window.addEventListener('load', adjustBookScale);
+    document.addEventListener('DOMContentLoaded', adjustBookScale);
+
     let currentLocation = 1;
     const pages = document.querySelectorAll('.page');
     const maxLocation = pages.length + 1;
