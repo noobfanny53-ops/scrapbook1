@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love! ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: #3e445c;
+            font-family: 'Lato', 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            perspective: 2500px;
+        }
+
+        .header-container { text-align: center; color: #ffffff; margin-bottom: 25px; }
+        .header-title { 
+            font-family: 'Playfair Display', Georgia, serif; 
+            font-size: 30px; 
+            font-weight: 500; 
+            font-style: italic;
+            letter-spacing: 0.5px; 
+            margin-bottom: 5px; 
+            color: #ffb3c6; 
+        }
+        .header-subtitle { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 6px; 
+            font-family: 'Lato', sans-serif;
+            font-size: 13px; 
+            font-weight: 300; 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #b0b5c9; 
+        }
+
+        .book {
+            position: relative;
+            width: 330px;
+            height: 450px;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fcfbf7;
+            overflow: hidden;
+        }
+
+        .front {
+            border-radius: 0 12px 12px 0;
+            box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.05), 5px 10px 25px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        .back {
+            transform: rotateY(180deg);
+            border-radius: 12px 0 0 12px;
+            box-shadow: inset -15px 0 20px rgba(0, 0, 0, 0.08), -5px 10px 25px rgba(0, 0, 0, 0.15);
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .flipped { 
+            transform: rotateY(-180deg); 
+        }
+
+        .flipped .front {
+            box-shadow: inset 15px 0 20px rgba(0,0,0,0.1), 5px 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .photo-frame { position: relative; width: 100%; height: 80%; margin-bottom: 15px; border: 8px solid #ffffff; box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
+        .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .tape-sticker { width: 80px; height: 30px; background-color: rgba(173,216,230,0.5); position: absolute; top: -10px; left: 50%; transform: translateX(-50%) rotate(-5deg); border-radius: 2px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 1; }
+        .photo-container-dual { display: flex; flex-direction: column; gap: 15px; width: 100%; }
+        .photo-frame-interactive { position: relative; width: 100%; height: 150px; background: #ffffff; border: 6px solid #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.15); border-radius: 2px; overflow: hidden; }
+        .photo-slider { display: flex; width: 200%; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
+        .photo-slider img { width: 50%; height: 100%; object-fit: cover; }
+        .tap-hint { position: absolute; bottom: 5px; right: 5px; background: rgba(0, 0, 0, 0.6); color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px; font-family: 'Lato', sans-serif; letter-spacing: 0.5px; pointer-events: none; z-index: 10; }
+        
+        .scrapbook-heart-container { position: relative; width: 220px; height: 200px; margin: 5px auto 10px; display: flex; justify-content: center; align-items: center; }
+        .heart-lace-bg { position: absolute; width: 190px; height: 190px; background-color: #ffffff; -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center; mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center; -webkit-mask-size: contain; mask-size: contain; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.15)); opacity: 0.95; z-index: 1; }
+        .heart-photo-frame { position: absolute; width: 165px; height: 165px; z-index: 2; cursor: pointer; overflow: hidden; -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center; mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center; -webkit-mask-size: contain; mask-size: contain; }
+        .heart-photo-frame .photo-slider { display: flex; width: 200%; height: 100%; transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); }
+        .heart-photo-frame .photo-slider img { width: 50%; height: 100%; object-fit: cover; flex-shrink: 0; }
+        
+        .ribbon-sticker { position: absolute; top: -2px; font-size: 32px; z-index: 5; pointer-events: none; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15)); }
+        .flower-bouquet-left { position: absolute; left: -10px; bottom: 10px; font-size: 28px; z-index: 4; pointer-events: none; }
+        .flower-bouquet-right { position: absolute; right: -10px; top: 20px; font-size: 28px; z-index: 4; pointer-events: none; }
+        .sparkle-doodle { position: absolute; font-size: 14px; color: #ffb3c6; pointer-events: none; z-index: 3; }
+        .text-content { padding: 10px; text-align: center; color: #333333; width: 100%; }
+
+        /* ===== FONT UPGRADE ===== */
+        .lettering-title { 
+            font-family: 'Playfair Display', Georgia, serif; 
+            font-size: 22px; 
+            font-style: italic;
+            font-weight: 500;
+            color: #ff4d79; 
+            margin-bottom: 5px; 
+            letter-spacing: 0.3px;
+        }
+        .handwritten-caption { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 19px; 
+            font-weight: 500;
+            line-height: 1.5; 
+            color: #555555; 
+        }
+
+        /* music page */
+        .music-page { background-color: #110707 !important; padding: 15px !important; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; color: #ffffff; }
+        .main-card-player { width: 100%; text-align: center; margin-top: 5px; margin-bottom: 15px; }
+        .music-art-frame { width: 110px; height: 110px; margin: 0 auto 12px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.6); }
+        .music-art-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .main-track-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: 17px; font-weight: 500; color: #ffffff; margin-bottom: 2px; }
+        .main-track-artist { font-family: 'Lato', sans-serif; font-size: 12px; font-weight: 300; letter-spacing: 1.5px; text-transform: uppercase; color: #a7a7a7; margin-bottom: 12px; }
+        .timeline-container { width: 90%; margin: 0 auto 10px; }
+        .progress-bar-bg { width: 100%; height: 4px; background: #3e3e3e; border-radius: 2px; cursor: pointer; margin-bottom: 6px; }
+        .progress-bar-fill { height: 100%; width: 0%; background: #ffffff; border-radius: 2px; }
+        .time-labels { display: flex; justify-content: space-between; font-family: 'Lato', sans-serif; font-size: 11px; color: #a7a7a7; }
+        .circle-play-btn { width: 46px; height: 46px; background: #ffffff; border: none; border-radius: 50%; cursor: pointer; display: inline-flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s; }
+        .circle-play-btn:hover { transform: scale(1.05); }
+        .circle-play-btn svg { width: 18px; height: 18px; fill: #110707; }
+        .playlist-section { width: 100%; margin-top: 5px; }
+        .horizontal-tracks-grid { display: flex; gap: 12px; width: 100%; overflow-x: auto; padding-bottom: 8px; }
+        .horizontal-tracks-grid::-webkit-scrollbar { height: 4px; }
+        .horizontal-tracks-grid::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        .square-track-card { flex: 0 0 85px; display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; }
+        .square-track-card img { width: 80px; height: 80px; border-radius: 8px; object-fit: cover; margin-bottom: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.4); transition: border 0.2s; }
+        .square-track-card.active img { border: 2px solid #ff4d79; }
+        .card-song-name { font-family: 'Lato', sans-serif; font-size: 11px; font-weight: 700; color: #ffffff; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-artist-name { font-family: 'Lato', sans-serif; font-size: 10px; font-weight: 300; color: #a7a7a7; }
+
+        .controls { margin-top: 35px; display: flex; gap: 20px; z-index: 100; }
+        .btn { background: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 18px; color: #3e445c; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; transition: transform 0.2s, background-color 0.2s; }
+        .btn:hover { background-color: #f0f2f5; transform: scale(1.05); }
+
+        /* GAME SCREEN */
+        .game-container { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-start; 
+            align-items: center; 
+            width: 100%; 
+            height: 100%; 
+            position: relative; 
+            padding: 20px 10px;
+            overflow: hidden !important;
+        }
+        .game-header { text-align: center; color: #ffffff; z-index: 10; margin-bottom: 5px; pointer-events: none; }
+        .game-header h2 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 22px; margin: 0; font-weight: 500; text-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .game-header p { font-family: 'Lato', sans-serif; font-size: 12px; letter-spacing: 0.5px; opacity: 0.9; margin: 4px 0; }
+        .game-score { font-family: 'Dancing Script', cursive; font-size: 22px; font-weight: 600; color: #ffeb3b; margin-top: 2px; }
+        
+        #game-area { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: 20; 
+            overflow: hidden; 
+            pointer-events: auto;
+        }
+        
+        .falling-flower { 
+            position: absolute; 
+            font-size: 38px; 
+            cursor: pointer; 
+            user-select: none; 
+            animation: fall 2.8s linear forwards; 
+            z-index: 999; 
+            padding: 8px;
+            line-height: 1;
+            touch-action: none;
+        }
+        @keyframes fall { 
+            0% { transform: translateY(-50px); opacity: 0; } 
+            10% { opacity: 1; }
+            100% { transform: translateY(460px); opacity: 0.2; } 
+        }
+        .flower-collected { animation: collect 0.3s ease-out forwards; pointer-events: none; }
+        @keyframes collect { 0%{transform:scale(1.3); opacity:1} 100%{transform:scale(0) translateY(-20px); opacity:0} }
+        
+        .game-complete { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; background: rgba(255,255,255,0.98); padding: 25px; border-radius: 20px; z-index: 1000; box-shadow: 0 10px 40px rgba(0,0,0,0.4); display: none; width: 85%; }
+        .game-complete h3 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 26px; color: #ff4d79; margin-bottom: 10px; font-weight: 500; }
+        .game-complete p { font-family: 'Dancing Script', cursive; color: #444; font-size: 18px; font-weight: 500; margin: 8px 0; line-height: 1.4; }
+
+        /* CONFETTI */
+        .confetti-particle { position: absolute; font-size: 24px; animation: poof 1.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards; z-index: 9999; pointer-events: none; }
+        @keyframes poof { 0% { transform: translate(0, 0) scale(1.5); opacity: 1; } 100% { transform: translate(var(--x), var(--y)) rotate(720deg) scale(0); opacity: 0; } }
+
+        /* Deco Elements */
+        .washi { position: absolute; height: 20px; border-radius: 2px; z-index: 10; pointer-events: none; }
+        .w-blue { background: rgba(150,200,255,0.5); }
+        .w-pink { background: rgba(255,180,200,0.55); }
+        .w-yellow { background: rgba(255,240,150,0.6); }
+        .w-stripe { background: repeating-linear-gradient(45deg, rgba(255,150,180,0.4) 0px, rgba(255,150,180,0.4) 4px, rgba(255,200,220,0.4) 4px, rgba(255,200,220,0.4) 8px); }
+        .stk { position: absolute; pointer-events: none; user-select: none; z-index: 20; }
+
+        .tag { 
+            display: inline-block; 
+            font-family: 'Lato', sans-serif; 
+            font-size: 11px; 
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 3px 10px; 
+            border-radius: 20px; 
+        }
+        .tag-pink { background: #ff4d79; color: white; }
+        .tag-blue { background: #4d79ff; color: white; }
+        .tag-yellow { background: #f5c518; color: #333; }
+
+        .polaroid { background: white; padding: 5px 5px 18px; box-shadow: 0 3px 10px rgba(0,0,0,0.18); position: absolute; }
+        .polaroid img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .pol-cap { position: absolute; bottom: 2px; left: 0; right: 0; text-align: center; font-family: 'Dancing Script', cursive; font-size: 11px; color: #555; }
+        .film-strip { background: #111; padding: 6px 3px; display: flex; gap: 3px; border-radius: 3px; position: relative; }
+        .film-frame { width: 54px; height: 50px; overflow: hidden; border: 1px solid #333; flex-shrink: 0; }
+        .film-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .custom-scroll { overflow-y: auto; scrollbar-width: thin; scrollbar-color: #ff4d79 transparent; }
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #ff4d79; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<audio id="main-audio" src="riskitall.mp3" loop></audio>
+
+<div class="header-container">
+    <div class="header-title">Our Precious Moments 💞</div>
+    <div class="header-subtitle">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+        </svg>
+        <span>Birthday Scrapbook</span>
+    </div>
+</div>
+
+<div class="book" id="book">
+
+    <!-- PAGE 1: COVER & WELCOME -->
+    <div class="page" id="p1">
+        <div class="front" onclick="togglePage(1)" style="background:linear-gradient(160deg,#fff0f4 0%,#fcfbf7 100%); padding:15px; justify-content:flex-start; padding-top:16px;">
+            <div class="washi w-blue" style="width:70px;top:10px;left:50%;transform:translateX(-50%) rotate(-3deg)"></div>
+            <div class="stk" style="top:8px;right:10px;font-size:22px">🌸</div>
+            <div class="stk" style="top:8px;left:10px;font-size:18px">💫</div>
+            <div style="position:relative;width:100%;height:58%;border:8px solid white;box-shadow:0 5px 15px rgba(0,0,0,0.15);transform:rotate(1.5deg);margin-top:18px;flex-shrink:0">
+                <img src="img/cover.jpg" alt="Cover" style="width:100%;height:100%;object-fit:cover">
+            </div>
+            <div style="display:flex;gap:5px;width:100%;margin-top:10px">
+                <div style="flex:1;height:60px;overflow:hidden;border:4px solid white;transform:rotate(-2deg);box-shadow:0 2px 6px rgba(0,0,0,0.12);flex-shrink:0"><img src="img/cover1.jpg" style="width:100%;height:100%;object-fit:cover"></div>
+                <div style="flex:1;height:60px;overflow:hidden;border:4px solid white;transform:rotate(1deg);box-shadow:0 2px 6px rgba(0,0,0,0.12);flex-shrink:0"><img src="img/cover2.jpg" style="width:100%;height:100%;object-fit:cover"></div>
+                <div style="flex:1;height:60px;overflow:hidden;border:4px solid white;transform:rotate(-1deg);box-shadow:0 2px 6px rgba(0,0,0,0.12);flex-shrink:0"><img src="img/cover3.jpg" style="width:100%;height:100%;object-fit:cover"></div>
+            </div>
+            <div style="text-align:center;margin-top:10px;width:100%">
+                <div class="lettering-title" style="font-size:19px">Happy Girlfriend Day Zezee 🩷</div>
+                <div style="font-family:'Dancing Script',cursive;font-size:15px;color:#aaa;margin-top:2px;font-weight:400">Flip the page to step inside... ✨</div>
+            </div>
+            <div class="stk" style="bottom:38px;left:8px;font-size:18px">🎀</div>
+            <div class="stk" style="bottom:38px;right:8px;font-size:16px">✨</div>
+        </div>
+        <div class="back" onclick="togglePage(1)" style="background:#fff0f4">
+            <div class="washi w-pink" style="width:60px;top:14px;left:50%;transform:translateX(-50%) rotate(2deg)"></div>
+            <div class="stk" style="top:12px;right:12px;font-size:20px">🌷</div>
+            <div class="stk" style="bottom:18px;left:12px;font-size:18px">⭐</div>
+            <div class="text-content">
+                <div class="lettering-title">To the One Who Holds My Heart... 🤍</div>
+                <p class="handwritten-caption" style="font-size:18px; line-height:1.5; color:#444;">My love for you doesn't exist because of your beauty or your body, it can be gone immediately. Despite all the fights, i will always choose you a thousand times.</p>
+                <div style="margin-top:12px;font-size:26px">🎈🎀💕</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: INTERACTIVE GALLERY -->
+    <div class="page" id="p2">
+        <div class="front" onclick="togglePage(2)" style="background:#fafbff; padding:12px; justify-content:flex-start; padding-top:12px;">
+            <div style="width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;flex-shrink:0">
+                <span class="tag tag-pink" style="transform:rotate(-2deg)">2026 ✨</span>
+                <span style="font-size:17px">📷</span>
+                <span class="tag tag-blue" style="transform:rotate(2deg)">You & Me 💙</span>
+            </div>
+            <div class="washi w-stripe" style="width:90px;top:42px;left:15px;transform:rotate(-2deg)"></div>
+            <div class="photo-frame-interactive" style="transform:rotate(-1deg);" onclick="event.stopPropagation(); slidePhoto(this)">
+                <div class="photo-slider">
+                    <img src="img/foto1_a.jpg" alt="Foto 1A">
+                    <img src="img/foto1_b.jpg" alt="Foto 1B">
+                </div>
+                <div class="tap-hint">Tap Photo 🔄</div>
+            </div>
+            <div style="width:100%;display:flex;justify-content:center;align-items:center;gap:6px;margin:4px 0">
+                <span style="font-size:13px">💗</span>
+                <span style="font-family:'Dancing Script',cursive;font-size:14px;color:#aaa;font-weight:500">tap to unlock another view</span>
+                <span style="font-size:13px">💗</span>
+            </div>
+            <div class="washi w-yellow" style="width:70px;top:218px;right:20px;transform:rotate(3deg)"></div>
+            <div class="photo-frame-interactive" style="transform:rotate(1.5deg);" onclick="event.stopPropagation(); slidePhoto(this)">
+                <div class="photo-slider">
+                    <img src="img/foto2_a.jpg" alt="Foto 2A">
+                    <img src="img/foto_b.jpg" alt="Foto 2B">
+                </div>
+                <div class="tap-hint">Tap Photo 🔄</div>
+            </div>
+            <div class="text-content" style="margin-top:8px; padding:0">
+                <div class="lettering-title" style="font-size:20px; color:#ff4d79;">You make my world infinitely brighter! ☀️</div>
+            </div>
+            <div class="stk" style="bottom:38px;right:6px;font-size:20px;transform:rotate(12deg)">🌻</div>
+            <div class="stk" style="top:50px;right:6px;font-size:13px">💫</div>
+        </div>
+        <div class="back" onclick="togglePage(2)" style="background:#f0f4ff">
+            <div class="washi w-blue" style="width:60px;top:14px;left:50%;transform:translateX(-50%) rotate(-3deg)"></div>
+            <div class="stk" style="top:12px;right:12px;font-size:18px">🦋</div>
+            <div class="stk" style="bottom:20px;left:10px;font-size:18px">🌙</div>
+            <div class="text-content">
+                <div class="lettering-title">I Love You Zezee</div>
+                <p class="handwritten-caption" style="font-size:18px; line-height:1.5;">Even if i change everything in my life, one thing that will never change is that<br>I LOVE YOU.</p>
+                <div class="lettering-title" style="font-size:36px; margin-top:12px; color:#4d79ff;">Forever 💙</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: POLAROID GRID -->
+    <div class="page" id="p3">
+        <div class="front" onclick="togglePage(3)" style="background:#fdf9f0; padding:10px; justify-content:flex-start; padding-top:8px;">
+            <div style="width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;flex-shrink:0">
+                <span class="tag tag-pink" style="transform:rotate(-3deg);font-size:10px">Frozen in Time 📸</span>
+                <span style="font-size:15px">🌸✨</span>
+            </div>
+            <div style="position:relative;width:100%;height:355px;flex-shrink:0">
+                <div class="polaroid" style="width:138px;height:135px;top:0;left:0;transform:rotate(-4deg)">
+                    <img src="img/polaroid1.jpg" alt="">
+                    <div class="pol-cap">my absolute fav 💕</div>
+                    <div class="washi w-pink" style="width:48px;top:-8px;left:50%;transform:translateX(-50%) rotate(-2deg)"></div>
+                </div>
+                <div class="polaroid" style="width:122px;height:118px;top:3px;right:0;transform:rotate(5deg)">
+                    <img src="img/cover1.jpg" alt="">
+                    <div class="pol-cap">cherished memories 🌹</div>
+                    <div class="washi w-yellow" style="width:44px;top:-8px;left:50%;transform:translateX(-50%) rotate(3deg)"></div>
+                </div>
+                <div class="stk" style="top:114px;left:125px;font-size:20px">💗</div>
+                <div class="polaroid" style="width:192px;height:107px;top:143px;left:4px;transform:rotate(2deg)">
+                    <img src="img/foto2_a.jpg" alt="">
+                    <div class="pol-cap">safer in your arms 🤍</div>
+                    <div class="washi w-stripe" style="width:52px;top:-8px;left:50%;transform:translateX(-50%) rotate(-2deg)"></div>
+                </div>
+                <div class="polaroid" style="width:96px;height:90px;top:148px;right:0;transform:rotate(-6deg)">
+                    <img src="img/foto2_b.jpg" alt="">
+                    <div class="pol-cap">such a cutie! ✨</div>
+                    <div class="washi w-blue" style="width:36px;top:-8px;left:50%;transform:translateX(-50%) rotate(2deg)"></div>
+                </div>
+                <div class="polaroid" style="width:112px;height:105px;bottom:0;left:0;transform:rotate(3deg)">
+                    <img src="img/cover2.jpg" alt="">
+                    <div class="pol-cap">soulmates 🎀</div>
+                    <div class="washi w-pink" style="width:40px;top:-8px;left:50%;transform:translateX(-50%)"></div>
+                </div>
+                <div class="polaroid" style="width:112px;height:105px;bottom:0;right:0;transform:rotate(-4deg)">
+                    <img src="img/foto1_a.jpg" alt="">
+                    <div class="pol-cap">by your side, always 💛</div>
+                    <div class="washi w-blue" style="width:40px;top:-8px;left:50%;transform:translateX(-50%) rotate(-2deg)"></div>
+                </div>
+                <div class="stk" style="bottom:68px;right:103px;font-size:16px">🌸</div>
+                <div class="stk" style="bottom:46px;left:108px;font-size:12px">✨</div>
+                <div class="stk" style="top:126px;right:88px;font-size:12px">⭐</div>
+            </div>
+            <div style="text-align:center;margin-top:4px;width:100%;flex-shrink:0">
+                <div class="lettering-title" style="font-size:15px">✨ Capturing What Words Cannot Say ✨</div>
+            </div>
+        </div>
+        <div class="back" onclick="togglePage(3)" style="background:#f0fff8">
+            <div class="washi w-blue" style="width:60px;top:14px;left:50%;transform:translateX(-50%) rotate(-2deg)"></div>
+            <div class="stk" style="top:12px;right:12px;font-size:18px">🦋</div>
+            <div class="stk" style="bottom:15px;left:10px;font-size:18px">🌼</div>
+            <div class="text-content">
+                <div class="lettering-title" style="color:#52b788">Happy Girlfriend Day My Love 🌿</div>
+                <p class="handwritten-caption" style="color:#2d6a4f; font-size:20px;">"Every single second spent beside you turns into a beautifully written lyric that I promise to keep safe forever."</p>
+                <div style="margin-top:12px;font-size:24px">🌿🍃🌸</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 4: HEART SWEET FRAME -->
+    <div class="page" id="p4">
+        <div class="front" onclick="togglePage(4)" style="background-color: #fcf8f0;">
+            <div class="stk" style="top:8px;right:10px;font-size:18px">🎀</div>
+            <div class="stk" style="top:8px;left:10px;font-size:16px">💫</div>
+            <div class="lettering-title" style="font-size: 20px; margin-bottom: 0px;">✨ Happy Girlfriend Day My Love ✨</div>
+            <div class="scrapbook-heart-container">
+                <div class="heart-lace-bg"></div>
+                <div class="heart-photo-frame" onclick="event.stopPropagation(); slidePhoto(this)">
+                    <div class="photo-slider">
+                        <img src="img/foto2_a.jpg" alt="Foto Love 1">
+                        <img src="img/foto1_b.jpg" alt="Foto Love 2">
+                    </div>
+                </div>
+                <div class="tap-hint" style="bottom: 0px; right: 40px;">Tap 🔄</div>
+                <div class="ribbon-sticker">💝</div>
+                <div class="flower-bouquet-left">🌸🍃</div>
+                <div class="flower-bouquet-right">🌹✨</div>
+                <div class="sparkle-doodle" style="top:20px; left:20px;">⭐</div>
+                <div class="sparkle-doodle" style="bottom:10px; right:30px;">✨</div>
+            </div>
+            <div class="text-content" style="margin-top: 5px; padding: 0 5px;">
+                <p class="handwritten-caption" style="font-size: 16px; color: #444; line-height: 1.5;">"Every passing day reminds me just how lucky I am to have you. Thank you for making love feel so natural, soft, and safe. Happy Birthday, beautiful! 🤍"</p>
+                <div style="margin-top: 8px; font-family: 'Lato', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #b5828f; border: 1px dashed #b5828f; display: inline-block; padding: 3px 12px; border-radius: 20px;">You Are My Entire Universe</div>
+            </div>
+        </div>
+        <div class="back" onclick="togglePage(4)" style="background:#fff5f0">
+            <div class="washi w-pink" style="width:60px;top:14px;left:50%;transform:translateX(-50%) rotate(2deg)"></div>
+            <div class="stk" style="top:12px;right:12px;font-size:18px">🌟</div>
+            <div class="stk" style="bottom:15px;left:10px;font-size:16px">💖</div>
+            <div class="text-content">
+                <div class="lettering-title">Safe & Sound 🫶</div>
+                <p class="handwritten-caption" style="font-size:20px;">Thank you for bringing true laughter back into my days and endless warmth to my soul. You mean everything to me, sweetheart.</p>
+                <div class="lettering-title" style="font-size: 44px; margin-top: 15px; color: #ff4d79;">Forever ❤️</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 5: MUSIC PLAYER -->
+    <div class="page" id="p5">
+        <div class="front music-page" onclick="event.stopPropagation();">
+            <div class="main-card-player">
+                <div class="music-art-frame">
+                    <img id="player-cover" src="https://i.pinimg.com/736x/05/4e/d4/054ed470575230d7cccfcd2f596d384c.jpg" alt="Album Art">
+                </div>
+                <div id="player-title" class="main-track-title">Risk It All</div>
+                <div id="player-artist" class="main-track-artist">Bruno Mars</div>
+                <div class="timeline-container">
+                    <div class="progress-bar-bg" id="progress-area">
+                        <div class="progress-bar-fill" id="progress-bar"></div>
+                    </div>
+                    <div class="time-labels">
+                        <span id="current-time">0:00</span>
+                        <span id="total-duration">0:00</span>
+                    </div>
+                </div>
+                <button class="circle-play-btn" id="play-pause-btn">
+                    <svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+            </div>
+            <div class="playlist-section">
+                <div class="horizontal-tracks-grid">
+                    <div class="square-track-card active" onclick="selectTrack(0, 'riskitall.mp3', 'Risk It All', 'Bruno Mars', 'https://i.pinimg.com/736x/05/4e/d4/054ed470575230d7cccfcd2f596d384c.jpg')">
+                        <img src="https://i.pinimg.com/736x/05/4e/d4/054ed470575230d7cccfcd2f596d384c.jpg" alt="Thumb">
+                        <div class="card-song-name">Risk It All</div>
+                        <div class="card-artist-name">Bruno Mars</div>
+                    </div>
+                    <div class="square-track-card" onclick="selectTrack(1, 'heytheredelilah.mp3', 'Hey There Delilah', 'Plain White T\'s', 'https://i1.sndcdn.com/artworks-eJoN8TCyGDpyMRUJ-5G4BaQ-t1080x1080.jpg')">
+                        <img src="https://i1.sndcdn.com/artworks-eJoN8TCyGDpyMRUJ-5G4BaQ-t1080x1080.jpg" alt="Thumb">
+                        <div class="card-song-name">Hey There Delilah</div>
+                        <div class="card-artist-name">Plain White T's</div>
+                    </div>
+                    <div class="square-track-card" onclick="selectTrack(2, 'whoknows.mp3', 'Who Knows', 'Daniel Caesar', 'https://images.genius.com/b24ce29c094a185880632f403290d3b7.1000x1000x1.png')">
+                        <img src="https://images.genius.com/b24ce29c094a185880632f403290d3b7.1000x1000x1.png" alt="Thumb">
+                        <div class="card-song-name">Who Knows</div>
+                        <div class="card-artist-name">Daniel Caesar</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="back" onclick="togglePage(5)" style="background: #1c1a24; color: white;">
+            <div class="text-content">
+                <div class="lettering-title" style="color: #ffb3c6;">Our Soundtrack 🎵</div>
+                <p class="handwritten-caption" style="color: #bbb; font-size: 19px;">Tap into the melodies that hum softly in the background of our story.</p>
+                <div style="font-size: 35px; margin-top: 15px;">🎶🎵🎧</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 6: FILM STRIP -->
+    <div class="page" id="p6">
+        <div class="front" onclick="togglePage(6)" style="background:#e8d5b0; padding:12px; justify-content:flex-start; padding-top:10px;">
+            <div style="width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;flex-shrink:0">
+                <span class="tag tag-yellow" style="transform:rotate(-2deg);font-size:10px">Our Unfolding Plot 📖</span>
+                <span style="font-size:17px">🎞️</span>
+            </div>
+            <div class="film-strip" style="width:100%;margin-bottom:8px;flex-shrink:0">
+                <div class="film-frame"><img src="img/foto1_a.jpg" alt=""></div>
+                <div class="film-frame"><img src="img/foto1_b.jpg" alt=""></div>
+                <div class="film-frame"><img src="img/foto2_a.jpg" alt=""></div>
+                <div class="film-frame"><img src="img/foto2_b.jpg" alt=""></div>
+                <div class="film-frame"><img src="img/cover.jpg" alt=""></div>
+            </div>
+            <div style="display:flex;gap:6px;width:100%;margin-bottom:7px;flex-shrink:0">
+                <div style="position:relative;flex:1">
+                    <div class="washi w-pink" style="width:48px;top:-6px;left:50%;transform:translateX(-50%) rotate(-2deg)"></div>
+                    <div style="height:118px;border:6px solid white;box-shadow:0 3px 8px rgba(0,0,0,0.15);overflow:hidden;transform:rotate(-2deg)">
+                        <img src="img/foto2_a.jpg" style="width:100%;height:100%;object-fit:cover">
+                    </div>
+                    <div style="text-align:center;font-family:'Dancing Script',cursive;font-size:13px;color:#5c3d11;margin-top:2px;font-weight:600">hand in hand 🤍</div>
+                </div>
+                <div style="position:relative;flex:1">
+                    <div class="washi w-blue" style="width:48px;top:-6px;left:50%;transform:translateX(-50%) rotate(3deg)"></div>
+                    <div style="height:118px;border:6px solid white;box-shadow:0 3px 8px rgba(0,0,0,0.15);overflow:hidden;transform:rotate(2deg)">
+                        <img src="img/foto2_b.jpg" style="width:100%;height:100%;object-fit:cover">
+                    </div>
+                    <div style="text-align:center;font-family:'Dancing Script',cursive;font-size:13px;color:#5c3d11;margin-top:2px;font-weight:600">side by side 💕</div>
+                </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.65);border-radius:8px;padding:6px 10px;border-left:3px solid #e8a87c;width:100%;margin-bottom:6px;flex-shrink:0">
+                <p style="font-family:'Dancing Script',cursive;font-size:16px;color:#5c3d11;font-weight:600">"You are my favorite distraction, my quiet peace, and my happiest reason to smile... 🌻"</p>
+            </div>
+            <div style="display:flex;gap:4px;width:100%;flex-shrink:0">
+                <div style="flex:1;height:53px;overflow:hidden;border:3px solid white;transform:rotate(1deg)"><img src="img/foto1_a.jpg" style="width:100%;height:100%;object-fit:cover"></div>
+                <div style="flex:1;height:53px;overflow:hidden;border:3px solid white;transform:rotate(-2deg)"><img src="img/cover.jpg" style="width:100%;height:100%;object-fit:cover"></div>
+                <div style="flex:1;height:53px;overflow:hidden;border:3px solid white;transform:rotate(2deg)"><img src="img/foto1_b.jpg" style="width:100%;height:100%;object-fit:cover"></div>
+            </div>
+            <div class="stk" style="bottom:52px;right:5px;font-size:17px">🎀</div>
+        </div>
+        
+        <div class="back" onclick="togglePage(6)" style="background:#fdf0ff; padding: 15px; justify-content: flex-start;">
+            <div class="stk" style="top:10px; right:10px; font-size:22px;">👑</div>
+            <div class="washi w-stripe" style="width:80px; top:12px; left:20px; transform:rotate(-4deg)"></div>
+            
+            <div class="polaroid" style="position: relative; width: 165px; height: 175px; margin-top: 15px; transform: rotate(2deg); border: 8px solid #ffffff; padding-bottom: 25px; box-shadow: 0 6px 15px rgba(0,0,0,0.15); flex-shrink:0;">
+                <img src="img/foto2_a.jpg" alt="From Me" style="width:100%; height:100%; object-fit:cover;">
+                <div class="pol-cap" style="font-size:15px; font-weight:700; color:#ff4d79; bottom:4px;">From: Yours truly </div>
+            </div>
+
+            <div class="text-content" style="margin-top: 12px; padding: 0 5px;">
+                <div class="lettering-title" style="font-size: 22px; color: #9b5de5; margin-bottom: 3px;">Special For You ✨</div>
+                <p class="handwritten-caption" style="font-size: 15px; line-height:1.4; color: #444;">There are millions in this world, no one can compare with you. You have all my heart baby, you are exceptional. <br><br>Always be happy for me, babygirl.</p>
+                <div style="margin-top: 8px; font-family: 'Dancing Script', cursive; font-size: 16px; font-weight: 600; color: #ff4d79;">Turn over for a mini game! ➡️</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 7: MINI GAME & FINAL -->
+    <div class="page" id="p7">
+        <div class="front" onclick="event.stopPropagation();" style="padding: 0px !important;">
+            <div class="game-container">
+                <div class="game-header">
+                    <h2>Catch My Wishes! 🌸</h2>
+                    <p>Tap 5 falling flowers to reveal the final message!</p>
+                    <div class="game-score">Score: <span id="game-score">0</span></div>
+                </div>
+                <div id="game-area"></div>
+                <div class="game-complete" id="game-complete">
+                    <h3>Success! 🎉</h3>
+                    <p>"Every blossom carries a wish of mine for your happiness."</p>
+                    <button onclick="event.stopPropagation(); togglePage(7)" style="background:#ff4d79; border:none; color:white; padding:8px 18px; border-radius:20px; font-family:'Lato',sans-serif; font-weight:700; letter-spacing:1px; cursor:pointer; margin-top:10px;">
+                        Open Last Page ➡️
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="back" onclick="togglePage(7)" style="background: linear-gradient(145deg, #fdfbf7 0%, #f5f3ef 100%); padding: 30px 20px; justify-content: space-between; align-items: center; border-left: 4px solid rgba(0,0,0,0.05);">
+            <div class="washi w-pink" style="width: 70px; top: 15px; left: 50%; transform: translateX(-50%) rotate(1deg);"></div>
+            
+            <div style="text-align: center; margin-top: 40px; width: 100%;">
+                <div style="font-size: 40px; margin-bottom: 15px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">📕❤️</div>
+                <h2 style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 24px; color: #ff4d79; margin-bottom: 5px; font-weight: 500;">The End of This Chapter.</h2>
+                <div style="width: 40px; height: 1px; background: #ff4d79; margin: 12px auto;"></div>
+                <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 19px; color: #666; line-height: 1.5; padding: 0 10px;">
+                    "Every love story is beautiful, but ours is my absolute favorite."
+                </p>
+            </div>
+
+            <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px; margin-bottom: 10px;">
+                <div style="display: flex; flex-direction: column; align-items: center; opacity: 0.4;">
+                    <div style="letter-spacing: 2px; font-family:'Lato',sans-serif; font-size: 8px; color: #333; margin-bottom: 2px;">ISBN 520-1-314-2026</div>
+                    <div style="width: 100px; height: 25px; background: repeating-linear-gradient(90deg, #333, #333 2px, transparent 2px, transparent 4px, #333 4px, #333 5px, transparent 5px, transparent 8px);"></div>
+                    <div style="font-family:'Dancing Script',cursive; font-size: 11px; color: #333; margin-top: 3px;">Made with love for bby ♡</div>
+                </div>
+
+                <button onclick="event.stopPropagation(); location.reload()" style="background: #ff4d79; border: none; color: white; padding: 8px 24px; border-radius: 20px; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 1px; cursor: pointer; box-shadow: 0 4px 10px rgba(255,77,121,0.3); transition: transform 0.2s;">
+                    Read Again 🔄
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="controls">
+    <button class="btn" onclick="prevPage()">◀</button>
+    <button class="btn" onclick="nextPage()">▶</button>
+</div>
+
+<script>
+    let currentLocation = 1;
+    const pages = document.querySelectorAll('.page');
+    const maxLocation = pages.length + 1;
+    const book = document.getElementById('book');
+
+    function updateZIndices() {
+        pages.forEach((page, index) => {
+            const pageId = index + 1;
+            if (pageId < currentLocation) {
+                page.style.zIndex = pageId;
+            } else {
+                page.style.zIndex = pages.length - index + 10; 
+            }
+        });
+    }
+    updateZIndices();
+
+    function togglePage(pageId) {
+        const page = document.getElementById(`p${pageId}`);
+        if (page.classList.contains('flipped')) {
+            page.classList.remove('flipped');
+            currentLocation = pageId;
+        } else {
+            page.classList.add('flipped');
+            currentLocation = pageId + 1;
+        }
+        
+        setTimeout(updateZIndices, 200);
+
+        requestAnimationFrame(() => {
+            if (currentLocation === 1) {
+                book.style.transform = "translateX(0px)";
+            } else if (currentLocation > 1 && currentLocation < maxLocation) {
+                book.style.transform = "translateX(165px)";
+            } else if (currentLocation === maxLocation) {
+                book.style.transform = "translateX(330px)";
+            }
+        });
+
+        if (currentLocation === 7) {
+            startGame();
+        } else {
+            stopGame();
+        }
+    }
+
+    function nextPage() {
+        if (currentLocation < maxLocation) togglePage(currentLocation);
+    }
+    function prevPage() {
+        if (currentLocation > 1) togglePage(currentLocation - 1);
+    }
+
+    function slidePhoto(frameElement) {
+        const slider = frameElement.querySelector('.photo-slider');
+        const currentTransform = slider.style.transform;
+        if (!currentTransform || currentTransform === "translateX(0%)") {
+            slider.style.transform = "translateX(-50%)";
+        } else {
+            slider.style.transform = "translateX(0%)";
+        }
+    }
+
+    // AUDIO ENGINE
+    const audio = document.getElementById('main-audio');
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const playIcon = document.getElementById('play-icon');
+    const pauseIcon = document.getElementById('pause-icon');
+    const progressBar = document.getElementById('progress-bar');
+    const progressArea = document.getElementById('progress-area');
+    const currentTimeEl = document.getElementById('current-time');
+    const totalDurationEl = document.getElementById('total-duration');
+
+    function selectTrack(index, audioSrc, title, artist, coverSrc) {
+        document.getElementById('player-title').innerText = title;
+        document.getElementById('player-artist').innerText = artist;
+        document.getElementById('player-cover').src = coverSrc;
+        
+        audio.src = audioSrc;
+        audio.play().then(() => {
+            playIcon.style.display = "none";
+            pauseIcon.style.display = "block";
+        }).catch(err => console.log("Audio file initialization delayed/inactive:", err));
+
+        const cards = document.querySelectorAll('.square-track-card');
+        cards.forEach(card => card.classList.remove('active'));
+        cards[index].classList.add('active');
+    }
+
+    playPauseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (audio.paused) {
+            audio.play().then(() => {
+                playIcon.style.display = "none";
+                pauseIcon.style.display = "block";
+            }).catch(err => console.log("Audio Play failed:", err));
+        } else {
+            audio.pause(); 
+            playIcon.style.display = "block"; 
+            pauseIcon.style.display = "none";
+        }
+    });
+
+    audio.addEventListener('timeupdate', (e) => {
+        const currentTime = e.target.currentTime;
+        const duration = e.target.duration;
+        if (duration) {
+            progressBar.style.width = `${(currentTime / duration) * 100}%`;
+            let m = Math.floor(currentTime / 60);
+            let s = Math.floor(currentTime % 60);
+            s = s < 10 ? `0${s}` : s;
+            currentTimeEl.innerText = `${m}:${s}`;
+        }
+    });
+
+    audio.addEventListener('loadeddata', () => {
+        const d = audio.duration;
+        let m = Math.floor(d / 60), s = Math.floor(d % 60);
+        s = s < 10 ? `0${s}` : s;
+        totalDurationEl.innerText = `${m}:${s}`;
+    });
+
+    progressArea.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (audio.duration) audio.currentTime = (e.offsetX / progressArea.clientWidth) * audio.duration;
+    });
+
+    audio.addEventListener('ended', () => {
+        playIcon.style.display = "block"; pauseIcon.style.display = "none";
+        progressBar.style.width = "0%"; currentTimeEl.innerText = "0:00";
+    });
+
+    // GAME ENGINE
+    const flowers = ['🌸', '🌹', '🌺', '🌻', '🌷'];
+    let gameScore = 0;
+    let gameActive = false;
+    let flowerSpawnInterval;
+
+    function startGame() {
+        gameScore = 0; 
+        gameActive = true;
+        document.getElementById('game-score').innerText = '0';
+        document.getElementById('game-complete').style.display = 'none';
+        const gameArea = document.getElementById('game-area');
+        if (gameArea) gameArea.innerHTML = '';
+        clearInterval(flowerSpawnInterval);
+        flowerSpawnInterval = setInterval(() => { if (gameActive) spawnFlower(); }, 700);
+    }
+
+    function stopGame() {
+        gameActive = false;
+        clearInterval(flowerSpawnInterval);
+        const gameArea = document.getElementById('game-area');
+        if(gameArea) gameArea.innerHTML = '';
+    }
+
+    function spawnFlower() {
+        const gameArea = document.getElementById('game-area');
+        if(!gameArea || !gameActive) return;
+        
+        const flower = document.createElement('div');
+        flower.className = 'falling-flower';
+        flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+        
+        flower.style.left = (Math.random() * (gameArea.clientWidth - 50) + 10) + 'px';
+        flower.style.top = '-40px';
+        
+        const handleCatch = (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            catchFlower(flower);
+        };
+
+        flower.addEventListener('mousedown', handleCatch);
+        flower.addEventListener('touchstart', handleCatch, { passive: false });
+        
+        gameArea.appendChild(flower);
+        
+        setTimeout(() => { if (flower.parentNode) flower.remove(); }, 2800);
+    }
+
+    function catchFlower(flower) {
+        if (!gameActive || flower.classList.contains('flower-collected')) return;
+        flower.classList.add('flower-collected');
+        gameScore++;
+        document.getElementById('game-score').innerText = gameScore;
+        
+        setTimeout(() => {
+            if (flower.parentNode) flower.remove();
+        }, 250);
+
+        if (gameScore >= 5) {
+            completeGame();
+        }
+    }
+
+    function completeGame() {
+        gameActive = false;
+        clearInterval(flowerSpawnInterval);
+        document.getElementById('game-complete').style.display = 'block';
+        
+        for (let i = 0; i < 35; i++) {
+            createConfettiParticle();
+        }
+    }
+
+    function createConfettiParticle() {
+        const area = document.getElementById('game-area');
+        if(!area) return;
+        const p = document.createElement('div');
+        p.className = 'confetti-particle';
+        p.textContent = ['🎉','✨','💖','🌸','👑','🎈'][Math.floor(Math.random()*6)];
+        p.style.left = '50%';
+        p.style.top = '50%';
+        
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 65 + Math.random() * 150;
+        p.style.setProperty('--x', `${Math.cos(angle) * velocity}px`);
+        p.style.setProperty('--y', `${Math.sin(angle) * velocity}px`);
+        
+        area.appendChild(p);
+        setTimeout(() => p.remove(), 1200);
+    }
+</script>
+</body>
+</html>
